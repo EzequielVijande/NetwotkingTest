@@ -1,0 +1,5 @@
+﻿  NetworkingModel.cpp
+c:\users\ezequiel pc\source\repos\netwotkingtest\nettest\nettest\networkingmodel.h(6): fatal error C1083: Cannot open include file: 'boost/asio/deadline_timer.hpp': No such file or directory
+  main.cpp
+c:\users\ezequiel pc\source\repos\netwotkingtest\nettest\nettest\networkingmodel.h(6): fatal error C1083: Cannot open include file: 'boost/asio/deadline_timer.hpp': No such file or directory
+  Generating Code...
