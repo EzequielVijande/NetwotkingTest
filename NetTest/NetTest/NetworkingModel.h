@@ -1,8 +1,13 @@
 #pragma once
-#pragma once
 
 #include <string>
 #include <vector>
+#include <boost/chrono.hpp>
+#include <boost/timer/timer.hpp>
+#include <exception>
+#include <boost/exception/all.hpp>
+#include <boost/exception/exception.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio.hpp>
 #include <boost/function.hpp>
@@ -27,7 +32,6 @@ using boost::asio::deadline_timer;
 #define QUIT_HEADER (char)0xFF
 
 #define		PORT	13225
-#define		PORT_C	"13225"
 
 enum serverStatus { SERVER, CLIENT, UNINITIALIZED };
 class NetworkingModel
@@ -50,6 +54,7 @@ public:
 	bool connectAsServer();
 	void Shutdown();
 	~NetworkingModel();
+	
 private:
 	int state;
 	int port;
@@ -58,15 +63,13 @@ private:
 	serverStatus serverStat;
 	std::string me;
 	std::string you;
-	void client_connect_handler(const boost::system::error_code& error);
-	void timer_handler(const boost::system::error_code& error);
+	
 	//boost
-	boost::asio::io_service*  IO_handler;
+	void client_connect_handler(boost::asio::ip::tcp::socket*, const boost::system::error_code& error);
+	void timer_handler(const boost::system::error_code& error);
+	boost::asio::io_context*  IO_handler;
 	boost::asio::ip::tcp::socket* socket_a;
 	boost::asio::ip::tcp::acceptor* server_acceptor;
-	//boost::asio::ip::tcp::resolver* client_resolver;
 	boost::asio::ip::tcp::endpoint* endpoint_a;
 	deadline_timer* deadline_;
-	deadline_timer* heartbeat_timer_;
 };
-

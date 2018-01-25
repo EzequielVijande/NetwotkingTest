@@ -4,10 +4,45 @@
 #include <vector>
 #include <string>
 #include "NetworkingModel.h"
+#include "Server.h"
+#include "Client.h"
 #define MAX_IP_LENGTH 45
+#define TEST1
+//#define TEST2
 
 int main(void)
 {
+#ifdef TEST1
+	bool server= true;
+	char ip[MAX_IP_LENGTH + 1]; //ip del otro jugador
+	std::ifstream ip_file("./ip.txt");
+	if (server)
+	{
+		Server S(PORT_S);
+		S.setTurno(ESCUCHO);
+		S.listening();
+		getchar();
+
+	}
+	else
+	{
+		Client C(ip);
+		C.startConnection(ip);
+		C.sendSeq("holo");
+		getchar();
+	}
+
+
+	return 0;
+
+#endif //TEST1
+
+
+
+
+
+
+#ifdef TEST2
 	std::string sending;
 	std::vector<char> pckg;
 	bool sent = false;
@@ -23,7 +58,6 @@ int main(void)
 	NWM->setMe(user_nameS);
 	srand(time(NULL));
 	int waiting_time = 2000 + (rand() % 3000); //genera un tiempo de espera aleatorio entre 2000 y 5000 milisegundos.
-	char pckg[1];
 	if ((NWM->connectAsClient(waiting_time, ip)))
 	{
 		NWM->setServer(CLIENT);
@@ -53,14 +87,18 @@ int main(void)
 			{
 				sent = NWM->sendPackage((char*)sending.c_str(), 1);
 			} while (!sent);
-
 			pckg = NWM->readPackage();
-			std::cout << std::endl<<"Name of client is:"<<std::endl;
-			for (int i = 0; i < pckg.size(); i++)
+			std::cout << std::endl << "Name of client is:" << std::endl;
+			for (unsigned int i = 0; i < pckg.size(); i++)
 			{
 				std::cout << pckg[i];
 			}
+			getchar();
 		}
 	}
 	delete NWM;
+	
+	return 0;
+
+#endif //TEST2
 }
