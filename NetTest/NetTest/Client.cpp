@@ -2,13 +2,23 @@
 
 
 Client::Client(const char * ip) {
-	IO_handler = new boost::asio::io_service();
-	socket_forClient = new boost::asio::ip::tcp::socket(*IO_handler);
-	client_resolver = new boost::asio::ip::tcp::resolver(*IO_handler);
-	for (int i = 0; i < 16; i++)
+	try
 	{
-		NextIp[i] = ip[0];
+		IO_handler = new boost::asio::io_service();
+		socket_forClient = new boost::asio::ip::tcp::socket(*IO_handler);
+		client_resolver = new boost::asio::ip::tcp::resolver(*IO_handler);
+		for (int i = 0; i < 16; i++)
+		{
+			NextIp[i] = ip[0];
+		}
 	}
+	catch (boost::exception const&  ex)
+	{
+		std::cout << std::endl << diagnostic_information(ex) << std::endl;
+		getchar();
+
+	}
+	
 
 }
 
@@ -38,8 +48,17 @@ void Client::sendSeq(char * msg) {
 void Client::startConnection(const char* host) {
 	endpoint = client_resolver->resolve(boost::asio::ip::tcp::resolver::query(host, PORT_C));
 	cout << "Trying to connect to " << host << " on port " << PORT_C << std::endl;
-	boost::asio::connect(*socket_forClient, endpoint);
-	socket_forClient->non_blocking(true);
+	try
+	{
+		boost::asio::connect(*socket_forClient, endpoint);
+		socket_forClient->non_blocking(true);
+	}
+	catch (boost::exception const&  ex)
+	{
+		std::cout << std::endl << diagnostic_information(ex) << std::endl;
+		getchar();
+	}
+	
 }
 
 Client::~Client() {

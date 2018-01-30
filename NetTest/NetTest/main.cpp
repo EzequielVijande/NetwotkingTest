@@ -13,9 +13,10 @@
 int main(void)
 {
 #ifdef TEST1
-	bool server= true;
+	bool server= false;
 	char ip[MAX_IP_LENGTH + 1]; //ip del otro jugador
 	std::ifstream ip_file("./ip.txt");
+	ip_file.getline(ip, MAX_IP_LENGTH); //Consigo la ip del otro jugador
 	if (server)
 	{
 		Server S(PORT_S);

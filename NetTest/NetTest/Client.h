@@ -2,7 +2,11 @@
 
 #include <cstdio>
 #include <string>
+#include<exception>
+#include <boost/exception/all.hpp>
+#include <boost/exception/exception.hpp>
 #include <boost/asio.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/chrono.hpp>
 #include <boost/timer/timer.hpp>
 #include <iostream>

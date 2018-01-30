@@ -1,3 +1,4 @@
+
 #include "Server.h"
 
 
@@ -223,7 +224,7 @@ void getUserSequence(Server& S) //chequear errores de sequence
 	if (S.getQuit() == false)
 	{
 		std::cout << "Choose next sequence:" << std::endl;
-		for (int i = 0; i< S.getipsCount(); i++)
+		for (int i = 0; i < S.getipsCount(); i++)
 		{
 			do
 			{
@@ -239,4 +240,7 @@ void getUserSequence(Server& S) //chequear errores de sequence
 			} while ((seq < 0) || (seq > S.getipsCount()));
 		}
 	}
+
 }
+
+

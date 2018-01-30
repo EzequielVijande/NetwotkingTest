@@ -109,9 +109,6 @@ void NetworkingModel::SetServerFinishedPlacing(bool value)
 
 bool NetworkingModel::connectAsClient(int time, char * ip)
 {
-	IO_handler = new boost::asio::io_context;
-	socket_a = new boost::asio::ip::tcp::socket(*IO_handler);
-	socket_a->open(boost::asio::ip::tcp::v4());
 	endpoint_a = new boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(ip), PORT);
 	std::cout << "Trying to connect to " << ip << " on port " << PORT << std::endl;
 	deadline_->expires_from_now(boost::posix_time::milliseconds(time)); //Tiempo a tratar la conexion.
